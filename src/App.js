@@ -4,6 +4,8 @@ import TodoInsert from './TodoInsert';
 import TodoList from './TodoList';
 import TodoTemplate from './TodoTemplate';
 
+//'dev 기능 구현 전'
+
 const App = () => {
   const [todos, setTodos] = useState([
     {
