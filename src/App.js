@@ -14,7 +14,7 @@ const App = () => {
     {
       id: 2,
       text: '컴포넌트 스타일링해 보기',
-      checked: false,
+      checked: true,
     },
     {
       id: 3,
