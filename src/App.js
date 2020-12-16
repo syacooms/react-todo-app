@@ -19,12 +19,17 @@ const App = () => {
     {
       id: 3,
       text: '일정 관리 앱 만들어 보기',
+      checked: true,
+    },
+    {
+      id: 4,
+      text: '취업하기..(❁´◡`❁)',
       checked: false,
     },
   ]);
 
   //고유 값 id
-  const nextId = useRef(4);
+  const nextId = useRef(5);
 
   const onInsert = useCallback(
     (text) => {
@@ -46,10 +51,21 @@ const App = () => {
     [todos],
   );
 
+  const onToggle = useCallback(
+    (id) => {
+      setTodos(
+        todos.map((todo) =>
+          todo.id === id ? { ...todo, checked: !todo.checked } : todo,
+        ),
+      );
+    },
+    [todos],
+  );
+
   return (
     <TodoTemplate>
       <TodoInsert onInsert={onInsert} />
-      <TodoList todos={todos} onRemove={onRemove} />
+      <TodoList todos={todos} onRemove={onRemove} onToggle={onToggle} />
     </TodoTemplate>
   );
 };
