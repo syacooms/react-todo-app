@@ -1,10 +1,8 @@
-import React, { useState } from 'react';
+import React, { useRef, useState, useCallback } from 'react';
 import './App.css';
 import TodoInsert from './TodoInsert';
 import TodoList from './TodoList';
 import TodoTemplate from './TodoTemplate';
-
-//'dev 기능 구현 전'
 
 const App = () => {
   const [todos, setTodos] = useState([
@@ -25,10 +23,33 @@ const App = () => {
     },
   ]);
 
+  //고유 값 id
+  const nextId = useRef(4);
+
+  const onInsert = useCallback(
+    (text) => {
+      const todo = {
+        id: nextId.current,
+        text,
+        checked: false,
+      };
+      setTodos(todos.concat(todo));
+      nextId.current += 1;
+    },
+    [todos],
+  );
+
+  const onRemove = useCallback(
+    (id) => {
+      setTodos(todos.filter((todo) => todo.id !== id));
+    },
+    [todos],
+  );
+
   return (
     <TodoTemplate>
-      <TodoInsert />
-      <TodoList todos={todos} />
+      <TodoInsert onInsert={onInsert} />
+      <TodoList todos={todos} onRemove={onRemove} />
     </TodoTemplate>
   );
 };
